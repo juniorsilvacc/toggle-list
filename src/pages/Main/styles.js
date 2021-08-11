@@ -39,6 +39,21 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     marginLeft: 20,
   },
+  listItemCheck:{
+    textDecorationLine: 'line-through',
+  },
+  itemsContainer:{
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  buttonRemove:{
+    justifyContent: 'center',
+    marginRight: 20,
+  },
+  buttonRemoveText: {
+    color: '#FF0100',
+  },
 });
 
 export default styles;

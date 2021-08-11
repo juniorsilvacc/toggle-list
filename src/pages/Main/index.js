@@ -1,31 +1,17 @@
 /* eslint-disable prettier/prettier */
-import React, {useReducer, useState} from 'react';
-import {sha256} from 'react-native-sha256';
+import React, {useState} from 'react';
+
 
 import {Text, TextInput, View, TouchableOpacity, FlatList} from 'react-native';
 
 import styles from './styles';
 
+import useMarketList from '../../hooks/useMarketList';
+
 const Main = () => {
 
-  const initialState = [];
-
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'ADD':
-        return [...state, action.item];
-      case 'CHECK':
-        return;
-      case 'REMOVE':
-        return;
-      default:
-        return state;
-    }
-  };
-
+  const [state, addItem, checkItem, removeItem] = useMarketList();
   const [product, setProduct] = useState('');
-  const [state, dispatch] = useReducer(reducer, initialState);
-
 
   return (
     <>
@@ -44,16 +30,7 @@ const Main = () => {
           <TouchableOpacity
             style={styles.touchable}
             onPress={async () =>  {
-              const hashId = await sha256(product);
-              dispatch({
-                type: 'ADD',
-                item: {
-                  id: hashId,
-                  title: product,
-                  check: false,
-                },
-              });
-
+              addItem(product);
               setProduct('');
             }}
           >
@@ -65,17 +42,26 @@ const Main = () => {
           <FlatList
             data={state}
             renderItem={({item}) => (
-              <TouchableOpacity
-                style={styles.itemTouchable}
-                onPress={() => {
-                  dispatch({
-                    type: 'CHECK',
-                    id: item.id,
-                  });
-                }}
-              >
-                <Text style={styles.listItem}>{item.title}</Text>
-              </TouchableOpacity>
+              <View style={styles.itemsContainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    checkItem(item.id);
+                  }}
+                >
+                  <Text style={[styles.listItem,
+                    item.check ? styles.listItemCheck : '',
+                  ]}>{item.title}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.buttonRemove}
+                  onPress={() => {
+                    removeItem(item.id);
+                  }}
+                >
+                  <Text style={styles.buttonRemoveText}>Remover</Text>
+                </TouchableOpacity>
+              </View>
             )}
           />
           </View>
