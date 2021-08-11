@@ -7,6 +7,10 @@ App mobile toggle list, aplicando conceitos do redux.
 ![foto1](https://user-images.githubusercontent.com/43589505/129106309-99af0e2e-e672-433b-a16e-f706628d3c1f.png)
 ![foto2](https://user-images.githubusercontent.com/43589505/129106329-509fc8fc-1966-41b8-af5f-dd292c8d95bb.png)
 
+## Funcionalidades de estado
+  - Adicionar item
+  - Check item
+  - Remover item
 
 ## Tecnologias utilizadas
 ### Frontend
